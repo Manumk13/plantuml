@@ -1,0 +1,39 @@
+@startuml
+
+actor Cliente 
+
+
+Cliente -> Pedido: 1: RealizaPedido
+Pedido -> Cliente: 1.1: buscaCliente
+
+
+Pedido -> Producto : 1.2: recuperarProductos
+Pedido <-- Producto : 1.3: listaProductos
+deactivate Producto
+Cliente <- Pedido : 1.3.1: muestraProductos
+deactivate Pedido
+
+    Cliente <-- Pedido : 1.1.1: pedirDatos
+    Cliente -> Pedido : 1.1.2: introducirDatos
+    Pedido -> Cliente: 1.1.2.1: crearCliente
+    deactivate Pedido
+
+
+Cliente -> Pedido++: 2: seleccionarProducto
+
+Cliente <- Producto : 2.2: muestraDatosProducto
+
+
+
+    Cliente -> Pedido: 3: confirmarPedido
+    Cliente <- Pedido: 3.1: muestraIDPedido
+    deactivate Pedido
+
+    Cliente -> Pedido : 3.2: cancelarPedido
+    destroy Pedido
+
+Cliente -> Producto: 3.3: confirmarSelección
+
+
+
+@enduml
